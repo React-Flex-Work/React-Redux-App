@@ -13,6 +13,7 @@ const Character = ({ character, deleteCharacter, characters }) => {
     return (
         <div className="whole-char">
             <h2>{name}</h2>
+            <h4>AKA</h4>
             <h3>{nickname}</h3>
             <img src={img} alt={'breaking bad character'} />
             <div className="char-details">

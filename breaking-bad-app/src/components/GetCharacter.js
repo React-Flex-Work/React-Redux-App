@@ -13,7 +13,7 @@ const GetCharacter = ({ characters, isFetching, error, fetchCharacters }) => {
         return <h2>I am the one who Loads...</h2>
     }
     return (
-        <div>
+        <div className='get-char'>
             {error && <p>{error}</p>}
             {characters.map(character =>
                 <Character key={character.char_id} character={character} />
