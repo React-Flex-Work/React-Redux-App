@@ -1,20 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { deleteCharacter } from '../actions';
 
-const Character = props => {
-    console.log(props);
+const Character = ({ character, deleteCharacter, characters }) => {
+    const { char_id, name, nickname, img, occupation, birthday, portrayed, status } = character;
+
+    const handleDelete = e => {
+        e.preventDefault();
+        deleteCharacter(char_id, characters)
+    }
+
     return (
         <div className="whole-char">
-            <h2>{props.name}</h2>
-            <h3>{props.nickname}</h3>
-            <img src={props.img} alt={'breaking bad character'} />
+            <h2>{name}</h2>
+            <h3>{nickname}</h3>
+            <img src={img} alt={'breaking bad character'} />
             <div className="char-details">
-                <p>Occupation: {props.occupation}</p>
-                <p>Birthday: {props.birthday}</p>
-                <p>Portrayed by: {props.portrayed}</p>
+                <p>Occupation: {occupation}</p>
+                <p>Birthday: {birthday}</p>
+                <p>Portrayed by: {portrayed}</p>
             </div>
-            <div>Spoiler Alert!: {props.status}</div>
+            <div>Spoiler Alert!: {status}</div>
+            <button onClick={handleDelete}>Delete Character</button>
         </div>
     )
 }
 
-export default Character;
+const mapStateToProps = state => {
+    return {
+        characters: state.characters
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    { deleteCharacter })(Character);

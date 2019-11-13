@@ -4,19 +4,19 @@ import Character from './Character';
 
 import { fetchCharacters } from '../actions';
 
-const GetCharacter = props => {
-    console.log('GetCharacter props', props);
+const GetCharacter = ({ characters, isFetching, error, fetchCharacters }) => {
+    console.log(characters);
     useEffect(() => {
-        props.fetchCharacters();
+        fetchCharacters();
     }, []);
-    if (props.isFetching) {
+    if (isFetching) {
         return <h2>I am the one who Loads...</h2>
     }
     return (
         <div>
-            {props.error && <p>{props.error}</p>}
-            {props.getCharacter.map(character =>
-                <Character key={character.char_id} name={character.name} nickname={character.nickname} img={props.img} occupation={props.occupation} birthday={props.birthday} portrayed={props.portrayed} status={props.status} />
+            {error && <p>{error}</p>}
+            {characters.map(character =>
+                <Character key={character.char_id} character={character} />
             )}
         </div>
     )
@@ -24,7 +24,7 @@ const GetCharacter = props => {
 
 const mapStateToProps = state => {
     return {
-        getCharacter: state.getCharacter,
+        characters: state.characters,
         isFetching: state.isFetching,
         error: state.error
     }
